@@ -44,12 +44,13 @@ class ReloadExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let _ = navigationController {
+        if navigationController != nil {
             navigationItem.titleView = bigLabel
             bigLabel.sizeToFit()
         }
 
-        if let pagerViewController = childViewControllers.filter( { $0 is PagerTabStripViewController } ).first as? PagerTabStripViewController {
+        let pagerViewController = childViewControllers.filter { $0 is PagerTabStripViewController }.first as? PagerTabStripViewController
+        if let pagerViewController = pagerViewController {
             updateTitle(of: pagerViewController)
         }
     }
@@ -61,10 +62,9 @@ class ReloadExampleViewController: UIViewController {
             }
             child.reloadPagerTabStripView()
             updateTitle(of: child)
-            break;
+            break
         }
     }
-
 
     @IBAction func closeTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
